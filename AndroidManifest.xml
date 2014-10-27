@@ -7,10 +7,14 @@
     <uses-sdk
         android:minSdkVersion="19"
         android:targetSdkVersion="19" />
-    <uses-feature android:name="android.hardware.camera" android:required="true" />
-    <uses-permission android:name="android.permission.CAMERA"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
+
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -33,7 +37,7 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="MainActivity" />
-        </activity>        
+        </activity>
         <activity
             android:name=".AddActivity"
             android:label="@string/title_activity_add"
@@ -57,9 +61,13 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="ProfileActivity" />
-        </activity>       
-        
-        
+        </activity>
+        <activity
+            android:name=".TreeMapActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_tree_map"
+            android:theme="@style/FullscreenTheme" >
+        </activity>
     </application>
 
 </manifest>
