@@ -3,6 +3,24 @@
     tools:context="com.example.genealogy.SecondActivity" >
 
     <item
+        android:id="@+id/action_search"
+        android:orderInCategory="85"
+        android:showAsAction="always"
+        android:icon="@android:drawable/ic_menu_search"
+        android:title="Search" />
+    <item
+        android:id="@+id/action_delete"
+        android:orderInCategory="95"
+        android:showAsAction="ifRoom"
+        android:icon="@android:drawable/ic_menu_delete"
+        android:title="DELETE" />
+    <item
+        android:id="@+id/action_add"
+        android:orderInCategory="90"
+        android:showAsAction="always"
+        android:icon="@android:drawable/ic_menu_add"
+        android:title="ADD" />
+    <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"
         android:showAsAction="never"

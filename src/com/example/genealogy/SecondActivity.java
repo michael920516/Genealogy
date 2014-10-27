@@ -3,9 +3,10 @@ package com.example.genealogy;
 import java.util.ArrayList;
 
 import com.example.genealogy.data.*;
-
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,6 +19,7 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,7 +35,7 @@ public class SecondActivity extends Activity {
 		setContentView(R.layout.activity_second);
 		context = this;
 		listShow = new ArrayList<Boolean>();
-		MyTest();
+		//MyTest();
 	}
     protected void onResume()
     {
@@ -65,9 +67,9 @@ public class SecondActivity extends Activity {
     void MyTest()
     {
         MemberDAO dao = new MemberDAODBImpl(this);
-        dao.add(new Member(0, "Bob", "母親", "19330519","123456789","Taipei", 1));
-        dao.add(new Member(0, "Jone", "父親", "33051922","23456789","Taichen", 1));
-        dao.add(new Member(0, "ken", "兒子", "0519233","3456789","Tainan", 1));
+        dao.add(new Member(0, "Bob", "������", "19330519","123456789","Taipei", 1));
+        dao.add(new Member(0, "Jone", "������", "33051922","23456789","Taichen", 1));
+        dao.add(new Member(0, "ken", "������", "0519233","3456789","Tainan", 1));
         data = dao.getAll();
         for (int i=0;i<data.length;i++)
         {
@@ -92,6 +94,75 @@ public class SecondActivity extends Activity {
 		if (id == R.id.action_settings) {
 			return true;
 		}
+        if (id == R.id.action_add)
+        {
+        	Intent it = new Intent(SecondActivity.this, AddActivity.class);
+        	startActivity(it);
+        }
+        
+        if (id == R.id.action_delete)
+        {
+        	AlertDialog.Builder alert = new AlertDialog.Builder(context);
+        	alert.setTitle("請確認刪除?");
+
+        	alert.setPositiveButton("確認", new DialogInterface.OnClickListener(){
+
+				@Override
+				public void onClick(DialogInterface arg0, int arg1) {
+					// TODO Auto-generated method stub
+					MemberDAO dao = new MemberDAODBImpl(context);
+			        Log.d("PHONE", "Befor for loop");
+					for (int i=0;i<listShow.size();i++)
+					{
+						if (listShow.get(i))
+						{   
+					        dao.delete(data[i].Serial);
+						}
+					}
+			        Log.d("PHONE", "Before data re-getAll");
+			        data = dao.getAll();
+			        Log.d("PHONE", "Before listShow Clear");
+			        listShow.clear();
+			        for (int i=0;i<data.length;i++)
+			        {
+			        	listShow.add(false);
+			        }
+			        Log.d("PHONE", "listShow Size:" + listShow.size() + ", data size:" + data.length);
+			        adapter.data = data;
+			        adapter.notifyDataSetChanged();
+					
+				}});
+        	alert.setNegativeButton("取消", null);
+        	alert.show();
+        	
+        }
+        
+        if (id == R.id.action_search)
+        {
+        	
+        	AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        	alert.setTitle("請輸入搜尋關鍵字:");
+            final EditText input = new EditText(this);
+            alert.setView(input);        	
+        	alert.setPositiveButton("確定", new DialogInterface.OnClickListener() {
+
+				@Override
+				public void onClick(DialogInterface arg0, int arg1) {
+					// TODO Auto-generated method stub
+		            MemberDAO dao = new MemberDAODBImpl(context);
+		            data = dao.search(input.getText().toString());
+		            for (int i=0;i<data.length;i++)
+		            {
+		            	listShow.add(false);
+		            }
+		            adapter.data = data;		            
+		        	adapter.notifyDataSetChanged();
+				}});
+        	alert.setNegativeButton("取消", null);
+        	alert.show();
+        	
+	
+        }
 		return super.onOptionsItemSelected(item);
 	}
     class ListAdapter extends BaseAdapter {
