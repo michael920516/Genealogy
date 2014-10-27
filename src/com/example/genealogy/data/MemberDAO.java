@@ -2,7 +2,7 @@ package com.example.genealogy.data;
 
 public interface MemberDAO {
 
-	public void add(Member m);
+	public int add(Member m);
 	public Member[] getAll();
 	public Member[] search(String keyword);
 	public void removeAll();

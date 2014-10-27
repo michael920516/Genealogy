@@ -18,7 +18,7 @@ public class MemberDBHelper extends SQLiteOpenHelper {
 	public void onCreate(SQLiteDatabase db) {
 		// TODO Auto-generated method stub
 
-	db.execSQL("Create table member (ID integer Primary Key AUTOINCREMENT, Name varchar(20), Called varchar(10), Birthday varchar(10),Tel varchar(20), Addr varchar(50),Life integer(1))");
+	db.execSQL("Create table member (Serial integer Primary Key AUTOINCREMENT, Name varchar(20), Called varchar(10), Birthday varchar(10),Tel varchar(20), Addr varchar(50),Life integer(1))");
 	
 	}
 

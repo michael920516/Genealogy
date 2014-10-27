@@ -13,12 +13,14 @@ public class MemberDAODBImpl implements MemberDAO {
 		this.context = context;
 	}
 	@Override
-	public void add(Member m) {
+	public int add(Member m) {
 		// TODO Auto-generated method stub
+		int i = 0;
 		MemberDBHelper helper = new MemberDBHelper(context);
 		SQLiteDatabase db = helper.getWritableDatabase();
 		db.execSQL("Insert into member (Name,Called,Birthday,Tel,Addr,Life) values ('" + m.Name + "' , '" + m.Called  + "' , '" + m.Birthday + "' , '" + m.Tel + "' , '" + m.Addr  + "' , '" + m.Life +"' )");
 		db.close();
+		return i;
 	}	
 
 	@Override
@@ -41,11 +43,11 @@ public class MemberDAODBImpl implements MemberDAO {
 	}
 
 	@Override
-	public Member getMember(int ID) {
+	public Member getMember(int Serial) {
 		// TODO Auto-generated method stub
 		MemberDBHelper helper = new MemberDBHelper(context);
 		SQLiteDatabase db = helper.getReadableDatabase();
-		Cursor cursor = db.rawQuery("Select * from member where ID =" + ID, null);
+		Cursor cursor = db.rawQuery("Select * from member where Serial =" + Serial, null);
 		cursor.moveToFirst();
 		Member p = new Member(cursor.getInt(0),cursor.getString(1),cursor.getString(2),cursor.getString(3),cursor.getString(4),cursor.getString(5),cursor.getInt(6));
 		db.close();
@@ -77,11 +79,11 @@ public class MemberDAODBImpl implements MemberDAO {
 	}
 
 	@Override
-	public void delete(int ID) {
+	public void delete(int Serial) {
 		// TODO Auto-generated method stub
 		MemberDBHelper helper = new MemberDBHelper(context);
 		SQLiteDatabase db = helper.getWritableDatabase();
-		db.execSQL("delete from member where ID="+ ID);
+		db.execSQL("delete from member where Serial="+ Serial);
 		db.close();
 	}
 
@@ -90,7 +92,7 @@ public class MemberDAODBImpl implements MemberDAO {
 		// TODO Auto-generated method stub
 		MemberDBHelper helper = new MemberDBHelper(context);
 		SQLiteDatabase db = helper.getWritableDatabase();
-		db.execSQL("Update member Set Name = '" + m.Name + "' , Called = '" + m.Called  + "' , Birthday = '" + m.Birthday + "' , Tel = '" + m.Tel + "' , Addr = '" + m.Addr +  "' , Life = '" + m.Life +"' )");
+		db.execSQL("Update member Set Name = '" + m.Name + "' , Called = '" + m.Called  + "' , Birthday = '" + m.Birthday + "' , Tel = '" + m.Tel + "' , Addr = '" + m.Addr +  "' , Life = " + m.Life + " where Serial= " + m.Serial);
 		db.close();
 	}
 
