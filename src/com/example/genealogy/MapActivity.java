@@ -58,7 +58,7 @@ public class MapActivity extends Activity {
 				// TODO Auto-generated method stub	
 				String CallTable = "兒子"; 
 //				Toast.makeText(MapActivity.this, CallTable, Toast.LENGTH_SHORT).show();
-			            data = dao.search(CallTable);
+			            data = dao.searchCall(CallTable);
 //			            Toast.makeText(MapActivity.this, data.length, Toast.LENGTH_SHORT).show();
 			            for(int i=0;i<data.length;i++) {
 			            	int n = i+111; 
