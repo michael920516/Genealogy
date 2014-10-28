@@ -3,6 +3,12 @@
     tools:context="com.example.genealogy.MainActivity" >
 
     <item
+        android:id="@+id/action_map"
+        android:orderInCategory="90"
+        android:showAsAction="always"
+        android:title="@string/action_map"
+    	android:icon="@drawable/relativesmap"/> 
+    <item
         android:id="@+id/action_profile"
         android:orderInCategory="95"
         android:showAsAction="always"

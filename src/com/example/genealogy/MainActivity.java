@@ -58,7 +58,7 @@ public class MainActivity extends Activity {
 				"a5b1;爸爸","a5b2;媳婦","a5b3;本人","a5b4;妻子","a5b5;孫子","a5b6;孫女","a5b7;兒子","a5b8;兒子","a5b9;女兒","a5b10;女兒","a5b11;兄弟(妻)","a5b12;姊妹(妻)","a5b13;哥哥","a5b14;弟弟","a5b15;姊姊",
 				"a6b1;爸爸","a6b2;無此稱呼","a6b3;本人","a6b4;妻子","a6b5;外孫","a6b6;外孫女","a6b7;兒子","a6b8;兒子","a6b9;女兒","a6b10;女兒","a6b11;兄弟(妻)","a6b12;姊妹(妻)","a6b13;哥哥","a6b14;弟弟","a6b15;姊姊",
 				"a7b1;弟弟","a7b2;嫂嫂","a7b3;爸爸","a7b4;媽媽","a7b5;姪子","a7b6;姪女","a7b7;兄弟","a7b8;兄弟","a7b9;姊姊","a7b10;姊妹","a7b11;舅舅","a7b12;阿姨","a7b13;伯父","a7b14;伯叔","a7b15;姊妹",
-				"a8b1;哥哥","a8b2;弟媳","a8b3;爸爸","a8b4;媽媽","a8b5;姪子","a8b6;姪女","a8b7;兄弟","a8b8;兄弟","a8b9;姊妹","a8b10;妹妹","a8b11;舅舅","a8b12;阿姨","a8b13;伯叔","a8b14;叔叔","a8b15;姊妹",
+				"a8b1;哥哥","a8b2;媳","a8b3;爸爸","a8b4;媽媽","a8b5;姪子","a8b6;姪女","a8b7;兄弟","a8b8;兄弟","a8b9;姊妹","a8b10;妹妹","a8b11;舅舅","a8b12;阿姨","a8b13;伯叔","a8b14;叔叔","a8b15;姊妹",
 				"a9b1;弟弟","a9b2;無此稱呼","a9b3;爸爸","a9b4;媽媽","a9b5;外甥","a9b6;外甥女","a9b7;兄弟","a9b8;兄弟","a9b9;姊姊","a9b10;姊妹","a9b11;舅舅","a9b12;阿姨","a9b13;伯父","a9b14;伯叔","a9b15;姑姑",
 				"a10b1;哥哥","a10b2;無此稱呼","a10b3;爸爸","a10b4;媽媽","a10b5;外甥","a10b6;外甥女","a10b7;兄弟","a10b8;兄弟","a10b9;姊妹","a10b10;妹妹","a10b11;舅舅","a10b12;阿姨","a10b13;伯叔","a10b14;叔叔","a10b15;姑姑",
 				"a11b1;外甥(女)","a11b2;舅媽","a11b3;舅公","a11b4;外祖母","a11b5;表兄弟","a11b6;表姊妹","a11b7;舅舅","a11b8;舅舅","a11b9;阿姨","a11b10;阿姨","a11b11;外舅公","a11b12;外姨婆","a11b13;外伯公","a11b14;外叔公","a11b15;外姑婆",
@@ -163,6 +163,10 @@ public class MainActivity extends Activity {
         }
         if (id == R.id.action_profile) {
         	Intent it = new Intent(MainActivity.this,SecondActivity.class);
+        	startActivity(it);
+        }
+        if (id == R.id.action_map) {
+        	Intent it = new Intent(MainActivity.this,MapActivity.class);
         	startActivity(it);
         }
         return super.onOptionsItemSelected(item);

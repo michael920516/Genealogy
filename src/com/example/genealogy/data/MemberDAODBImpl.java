@@ -95,5 +95,22 @@ public class MemberDAODBImpl implements MemberDAO {
 		db.execSQL("Update member Set Name = '" + m.Name + "' , Called = '" + m.Called  + "' , Birthday = '" + m.Birthday + "' , Tel = '" + m.Tel + "' , Addr = '" + m.Addr +  "' , Life = " + m.Life + " where Serial= " + m.Serial);
 		db.close();
 	}
+	@Override
+	public Member[] searchCall(String keyword) {
+		// TODO Auto-generated method stub
+		ArrayList<Member> list = new ArrayList<Member>();
+		MemberDBHelper helper = new MemberDBHelper(context);
+		SQLiteDatabase db = helper.getReadableDatabase();
+		Cursor cursor = db.rawQuery("Select * From member where Called like '%" + keyword + "%'", null);
+		cursor.moveToFirst();
+		while(!cursor.isAfterLast()){
+			list.add(new Member(cursor.getInt(0),cursor.getString(1),cursor.getString(2),cursor.getString(3),cursor.getString(4),cursor.getString(5),cursor.getInt(6)));
+			cursor.moveToNext();
+		}
+		db.close();
+		Member[] rtValue = new Member[list.size()];
+		list.toArray(rtValue);
+		return rtValue;
+	}
 
 }

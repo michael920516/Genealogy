@@ -63,10 +63,8 @@
                 android:value="ProfileActivity" />
         </activity>
         <activity
-            android:name=".TreeMapActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/title_activity_tree_map"
-            android:theme="@style/FullscreenTheme" >
+            android:name=".MapActivity"
+            android:label="@string/title_activity_map" >
         </activity>
     </application>
 

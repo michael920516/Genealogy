@@ -9,6 +9,8 @@ public interface MemberDAO {
 	public void delete(int ID);
 	public void edit(Member m);
 	public Member getMember(int ID);
+	public Member[] searchCall(String keyword);
+	
 	
 	
 }
