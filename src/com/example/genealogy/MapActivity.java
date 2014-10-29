@@ -32,15 +32,15 @@ public class MapActivity extends Activity {
 	Button bt311,bt312,bt321,bt322,bt331,bt332,bt341,bt342,bt351,bt352,bt361,bt362,bt371,bt372;
 	Button bt411,bt412,bt421,bt422,bt431,bt432,bt441,bt442;
 	Button bt511,bt512,bt521,bt522;
-	TextView tv1111,tv1112,tv1113,tv1121,tv1122,tv1123,mType,mValue;
+	TextView mType,mValue;
 	int Serial;
 	MemberDAODBImpl dao;
 	Member [] data;
 	ArrayAdapter<String> adapter11,adapter12;
 	ArrayList<Boolean> listShow;
 	ArrayList<String> getItem;
-	String [] mTitle = {"tv111","tv112","tv121",
-						"tv122","tv211","tv212"};
+	String [] mTitle = {"祖父","祖母","外祖父","外祖母",
+						"姑丈","姑媽","伯母"};
 	Spinner sll11;
 	View relativeLayout;
 	
@@ -52,8 +52,8 @@ public class MapActivity extends Activity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, 
                                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_map);
-        bt111 = (Button) findViewById(R.id.button111);
-        bt112 = (Button) findViewById(R.id.button112);
+//        bt111 = (Button) findViewById(R.id.button111);
+//        bt112 = (Button) findViewById(R.id.button112);
 //        bt121 = (Button) findViewById(R.id.button121);
 //        bt122 = (Button) findViewById(R.id.button122);
         
@@ -74,8 +74,8 @@ public class MapActivity extends Activity {
 	//first level button
 	    MakeBT(25,55,0);   
 	    MakeBT(48,55,1);
-	    MakeBT(331,55,2);
-	    MakeBT(350,55,3);
+	    MakeBT(321,55,2);
+	    MakeBT(340,55,3);
 	//Second level button
 	    MakeBT(6,190,4);
 	    MakeBT(25,190,5);
@@ -83,8 +83,8 @@ public class MapActivity extends Activity {
 	    MakeBT(79,190,7);
 	    MakeBT(180,190,8);
 	    MakeBT(199,190,9);
-	    MakeBT(300,190,10);
-	    MakeBT(319,190,11);
+	    MakeBT(320,190,10);
+	    MakeBT(339,190,11);
 	    MakeBT(370,190,12);
 	    MakeBT(389,190,13);
 	 //Third level button
@@ -103,19 +103,19 @@ public class MapActivity extends Activity {
 	    MakeBT(370,325,26);
 	    MakeBT(389,325,27);
 	 //Forth level button
-	    MakeBT(115,460,28);
-	    MakeBT(134,460,29);	    	    
-	    MakeBT(161,460,30);
-	    MakeBT(180,460,31);
-	    MakeBT(200,460,32);
-	    MakeBT(219,460,33);
-	    MakeBT(250,460,34);
-	    MakeBT(269,460,35);
+	    MakeBT(115,470,28);
+	    MakeBT(134,470,29);	    	    
+	    MakeBT(161,470,30);
+	    MakeBT(180,470,31);
+	    MakeBT(200,470,32);
+	    MakeBT(219,470,33);
+	    MakeBT(250,470,34);
+	    MakeBT(269,470,35);
 	 //Fifth level button
-	    MakeBT(161,610,36);
-	    MakeBT(180,610,37);
-	    MakeBT(200,610,38);
-	    MakeBT(219,610,39);    
+	    MakeBT(161,615,36);
+	    MakeBT(180,615,37);
+	    MakeBT(200,615,38);
+	    MakeBT(219,615,39);    
 	}
     void MakeTV(int left,int top,int right,int bottom) {
     	relativeLayout = findViewById(R.id.rLayout);
@@ -131,12 +131,12 @@ public class MapActivity extends Activity {
         ((RelativeLayout) relativeLayout).addView(mType);  
     }
     void MakeBT(int left,int top, int i) {
+    	final int mt = i;
     	relativeLayout = findViewById(R.id.rLayout);
         Button bt = new Button(this);
         bt.setLayoutParams(new LayoutParams(25,100));     
-//        bt.setText("Button " + i);
         bt.setId(i);
-//        bt.setBackgroundColor(5000);
+        bt.setBackgroundColor(0000);
         ((RelativeLayout) relativeLayout).addView(bt);  
         RelativeLayout.LayoutParams bt2=(RelativeLayout.LayoutParams)bt.getLayoutParams();
         bt2.leftMargin=left;//your left margin here
@@ -145,24 +145,26 @@ public class MapActivity extends Activity {
 			@Override
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
-				String CallTable = "祖父"; 
+				
+				String CallTable = mTitle[mt].toString();
+				Toast.makeText(MapActivity.this, CallTable, Toast.LENGTH_SHORT).show();
 	            data = dao.searchCall(CallTable);
 	            if(data.length > 0) {
-	            	for(int i=0;i<data.length;i++) {
-		            	int n = i+1;		            
-		            	getItem.add(data[i].Name);
+	            	for(int count=0;count<data.length;count++) {
+		            	int n = count+1;		            
+		            	getItem.add(data[count].Name);
 		            	switch (n) {
 		            	case 1 :
 		            		MakeTV( 150, 120, 130, 120 );
-		            		mType.setText(data[i].Name+"");
+		            		mType.setText(data[count].Name+"");
 		            		break;
 		            	case 2 :
 		            		MakeTV( 150, 140, 130, 120 );
-		            		mType.setText(data[i].Name+"");
+		            		mType.setText(data[count].Name+"");
 		            		break;
 		            	case 3 :
 		            		MakeTV( 150, 150, 130, 120 );
-		            		mType.setText(data[i].Name+"");
+		            		mType.setText(data[count].Name+"");
 		            		break;
 		            	}
 	            	}  	
