@@ -7,6 +7,7 @@ import com.example.genealogy.data.MemberDAODBImpl;
 import android.app.Activity;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
@@ -40,9 +41,13 @@ public class MapActivity extends Activity {
 	ArrayList<Boolean> listShow;
 	ArrayList<String> getItem;
 	String [] mTitle = {"祖父","祖母","外祖父","外祖母",
-						"姑丈","姑媽","伯母"};
+						"姑丈","姑媽","伯母","伯父","父親","母親","舅舅","舅媽","姨鎷","姨丈",
+						"表哥","表姊","堂姊","堂哥","嫂嫂","哥哥","本人","妻子","姊姊","姊夫","表哥","表姊","表哥","表姊",
+						"姪女","姪子","媳婦","兒子","女兒","女婿","外甥","外甥女","孫子","孫女","外孫","外孫女",
+						};
 	Spinner sll11;
 	View relativeLayout;
+	Handler handler;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -52,23 +57,11 @@ public class MapActivity extends Activity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, 
                                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_map);
-//        bt111 = (Button) findViewById(R.id.button111);
-//        bt112 = (Button) findViewById(R.id.button112);
-//        bt121 = (Button) findViewById(R.id.button121);
-//        bt122 = (Button) findViewById(R.id.button122);
+        relativeLayout = findViewById(R.id.rLayout);
         
-//        tv1111 = (TextView) findViewById(R.id.textView1111);
-//        tv1112 = (TextView) findViewById(R.id.textView1112);
-//        tv1113 = (TextView) findViewById(R.id.textView1113);
+        getItem = new ArrayList<String>();
 
-        // add TextView  
-
-        //end add TextView
-        
-        
-        listShow = new ArrayList();
-        getItem = new ArrayList();
-       
+        handler = new Handler();
        
 	    dao = new MemberDAODBImpl(this);	
 	//first level button
@@ -130,71 +123,78 @@ public class MapActivity extends Activity {
 //        mType.setText(t);
         ((RelativeLayout) relativeLayout).addView(mType);  
     }
-    void MakeBT(int left,int top, int i) {
-    	final int mt = i;
-    	relativeLayout = findViewById(R.id.rLayout);
+    void MakeBT(int left,int top, final int btId) {
+//    	relativeLayout = findViewById(R.id.rLayout);
         Button bt = new Button(this);
         bt.setLayoutParams(new LayoutParams(25,100));     
-        bt.setId(i);
+        bt.setId(btId);
         bt.setBackgroundColor(0000);
         ((RelativeLayout) relativeLayout).addView(bt);  
         RelativeLayout.LayoutParams bt2=(RelativeLayout.LayoutParams)bt.getLayoutParams();
         bt2.leftMargin=left;//your left margin here
         bt2.topMargin=top;//you       
-        ((Button)findViewById(i)).setOnClickListener(new OnClickListener(){
+        ((Button)findViewById(btId)).setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
 				
-				String CallTable = mTitle[mt].toString();
+				
+				String CallTable = mTitle[btId].toString();
 				Toast.makeText(MapActivity.this, CallTable, Toast.LENGTH_SHORT).show();
 	            data = dao.searchCall(CallTable);
 	            if(data.length > 0) {
 	            	for(int count=0;count<data.length;count++) {
 		            	int n = count+1;		            
 		            	getItem.add(data[count].Name);
+		            	Log.d("mike", "n= " + n +",btId="+ btId);
 		            	switch (n) {
 		            	case 1 :
-		            		MakeTV( 150, 120, 130, 120 );
+		            		MakeTV( 150, 60, 130, 120 );
 		            		mType.setText(data[count].Name+"");
+		            		delayView(" ",2000);
 		            		break;
 		            	case 2 :
-		            		MakeTV( 150, 140, 130, 120 );
+		            		MakeTV( 150, 90, 130, 120 );
 		            		mType.setText(data[count].Name+"");
+		            		delayView(" ",2000);
 		            		break;
 		            	case 3 :
-		            		MakeTV( 150, 150, 130, 120 );
+		            		MakeTV( 150, 120, 130, 120 );
 		            		mType.setText(data[count].Name+"");
+		            		delayView(" ",2000);
 		            		break;
 		            	}
 	            	}  	
 	            }else {
 	            	MakeTV( 150, 120, 130, 120 );
-	            	mType.setText("無資料");     
+	            	mType.setText("無資料");  
+	            	delayView(" ",2000);
 	            }            
 			}});
 
     }
-    void delay(int d) {
-	    final int welcomeScreenDisplay = d;
-	    /** create a thread to show splash up to splash time */
-	    Thread welcomeThread = new Thread() {
-	        int wait = 0;
+    
+    void delayView(final String End,final int dTime) {
+		new Thread(new Runnable(){
 	        @Override
 	        public void run() {
-	            try {
-	                super.run();
-	                while (wait < welcomeScreenDisplay) {
-	                    sleep(100);
-	                    wait += 100;
+	            try{
+	                Thread.sleep(dTime);	                
+	            }
+	            catch(Exception e){
+	                e.printStackTrace();
+	            }
+	            finally{
+	            }
+	            handler.post(new Runnable() {
+	                public void run()
+	                {
+	                    mType.setText(End);
 	                }
-	            } catch (Exception e) {
-	                Log.d("mike", "EXc=" + e);
-	            }      
-	        }    
-	    };
-	    welcomeThread.start();
-    }
+	            });
+	        } 
+	   }).start();
+	}
    
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
