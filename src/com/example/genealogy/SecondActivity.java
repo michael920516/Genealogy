@@ -1,5 +1,6 @@
 package com.example.genealogy;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import com.example.genealogy.data.*;
@@ -8,7 +9,10 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -20,6 +24,7 @@ import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -201,6 +206,24 @@ public class SecondActivity extends Activity {
 			tv.setText(data[position].Name);
 			TextView tv1 = (TextView) v.findViewById(R.id.tvCalled);
 			tv1.setText(data[position].Called); 
+			
+			ImageView iv = (ImageView) v.findViewById(R.id.imageView1);
+		
+	        File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "p" + data[position].Serial + ".jpg");	        
+	        if (file.exists()) {	        
+	        	Bitmap bm = BitmapFactory.decodeFile(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/" + "p" + data[position].Serial + ".jpg");
+	        	iv.setImageBitmap(bm);
+	        }else{        
+				for(int pic=1;pic<=data.length;pic++) {
+					if(position == pic) {
+					String uri = "@drawable/p" + pic;					
+					int imageResource = getResources().getIdentifier(uri, null, getPackageName());
+					Log.d("mike", "imageResource= " + imageResource);
+					iv.setImageResource(imageResource);
+//					iv.setImageResource(R.drawable.p1);
+					}
+				}
+	        }
 			
 			CheckBox chk = (CheckBox) v.findViewById(R.id.checkBox1);
 			chk.setChecked(listShow.get(position));

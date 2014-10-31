@@ -14,6 +14,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.RotateAnimation;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
@@ -26,13 +29,15 @@ import android.widget.Toast;
 public class MainActivity extends Activity {
 
 	Button bt1;
-	TextView tv1;
+	TextView tv1,tv3;
 	String who1rid,who2cid;
 	Map<String, String> who1,who2,called;
 	Collection<Entry<String, String>> calledSet;
 	Iterator<Entry<String, String>> it;
 	Spinner spinnerWho1, spinnerWho2 ;                                                                  
 	ArrayAdapter<String> who1ItemList,who2ItemList; 
+	RotateAnimation animation;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,7 +45,16 @@ public class MainActivity extends Activity {
         
         bt1 = (Button)findViewById(R.id.button1);
         tv1 = (TextView)findViewById(R.id.textView4);
+        tv3 = (TextView)findViewById(R.id.textView3);
+        animation = new RotateAnimation(0,359);
+        animation.setDuration(1000);
+        animation.setFillAfter(true);
+        animation.setRepeatCount(-1);
+        tv3.startAnimation(animation);
         
+//        
+//        Animation anim = AnimationUtils.loadAnimation(MainActivity.this,R.layout.activity_main);     
+//        findViewById(R.id.textView2).startAnimation(anim); 
     }	
    
 	@Override

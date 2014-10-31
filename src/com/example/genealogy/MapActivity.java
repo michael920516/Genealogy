@@ -110,7 +110,7 @@ public class MapActivity extends Activity {
 	    MakeBT(200,615,38);
 	    MakeBT(219,615,39);    
 	}
-    void MakeTV(int left,int top,int right,int bottom) {
+    void MakeTV(int left,int top,int right,int bottom, int mTypeId) {
     	relativeLayout = findViewById(R.id.rLayout);
         mType = new TextView(MapActivity.this);
         mType.setLayoutParams(new TableLayout.LayoutParams(
@@ -118,6 +118,7 @@ public class MapActivity extends Activity {
         		LayoutParams.WRAP_CONTENT,1f));
         mType.setPadding(left, top, right, bottom);
         mType.setTextSize(18);
+        mType.setId(mTypeId);
         mType.setTypeface(Typeface.DEFAULT_BOLD);
 //        mType.setGravity(Gravity.LEFT | Gravity.CENTER);
 //        mType.setText(t);
@@ -149,24 +150,24 @@ public class MapActivity extends Activity {
 		            	Log.d("mike", "n= " + n +",btId="+ btId);
 		            	switch (n) {
 		            	case 1 :
-		            		MakeTV( 150, 60, 130, 120 );
+		            		MakeTV( 150, 60, 130, 120, 1 );
 		            		mType.setText(data[count].Name+"");
 		            		delayView(" ",2000);
 		            		break;
 		            	case 2 :
-		            		MakeTV( 150, 90, 130, 120 );
+		            		MakeTV( 150, 90, 130, 120, 2);
 		            		mType.setText(data[count].Name+"");
 		            		delayView(" ",2000);
 		            		break;
 		            	case 3 :
-		            		MakeTV( 150, 120, 130, 120 );
+		            		MakeTV( 150, 120, 130, 120, 3);
 		            		mType.setText(data[count].Name+"");
 		            		delayView(" ",2000);
 		            		break;
 		            	}
 	            	}  	
 	            }else {
-	            	MakeTV( 150, 120, 130, 120 );
+	            	MakeTV( 150, 120, 130, 120, 1 );
 	            	mType.setText("無資料");  
 	            	delayView(" ",2000);
 	            }            
@@ -175,7 +176,9 @@ public class MapActivity extends Activity {
     }
     
     void delayView(final String End,final int dTime) {
-		new Thread(new Runnable(){
+		Log.d("mike", mType.getId() +"end");
+		
+    	new Thread(new Runnable(){
 	        @Override
 	        public void run() {
 	            try{
@@ -189,7 +192,9 @@ public class MapActivity extends Activity {
 	            handler.post(new Runnable() {
 	                public void run()
 	                {
-	                    mType.setText(End);
+	                	Log.d("mike", mType.getId() +"post");
+	                	mType.setText(End);
+	                	Log.d("mike", mType.getText() +","+ End+"," +"afterend");
 	                }
 	            });
 	        } 
